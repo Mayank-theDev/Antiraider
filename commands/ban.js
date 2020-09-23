@@ -6,7 +6,7 @@ module.exports = {
         if (member.id === message.guild.ownerID) return message.channel.send('You cannot ban the server owner.')
         if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('You cant ban this member')
         if (!member.bannable) return message.channel.send('The bot cant ban this member')
-        const reason = args.slice(1).join(' ') || 'Aucune raison fournie'
+        const reason = args.slice(1).join(' ') || 'No reason was given'
         await member.ban({reason})
         message.channel.send(`${member.user.tag} was banned, xD !`)
     },
