@@ -3,15 +3,15 @@ const parseDuration = require('parse-duration'),
  
 module.exports = {
     run: async (message, args) => {
-        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.')
+        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('you dont have perms to use this command.')
         const member = message.mentions.members.first()
-        if (!member) return message.channel.send('Veuillez mentionner le membre à mute.')
-        if (member.id === message.guild.ownerID) return message.channel.send('Vous ne pouvez mute le propriétaire du serveur.')
-        if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('Vous ne pouvez pas mute ce membre.')
-        if (!member.manageable) return message.channel.send('Le bot ne peut pas mute ce membre.')
+        if (!member) return message.channel.send('Please mention someone you want to mute.')
+        if (member.id === message.guild.ownerID) return message.channel.send('Server owner cant be muted.')
+        if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('That member cant be muted.')
+        if (!member.manageable) return message.channel.send('The bot cant mute that person.')
         const duration = parseDuration(args[1])
-        if (!duration) return message.channel.send('Veuillez indiquer une durée valide.')
-        const reason = args.slice(2).join(' ') || 'Aucune raison fournie.'
+        if (!duration) return message.channel.send('Please specify a valid duration.')
+        const reason = args.slice(2).join(' ') || 'No reason was provided.'
         let muteRole = message.guild.roles.cache.find(role => role.name === 'Muted')
         if (!muteRole) {
             muteRole = await message.guild.roles.create({
@@ -27,11 +27,11 @@ module.exports = {
             }))
         }
         await member.roles.add(muteRole)
-        message.channel.send(`${member} a été mute pendant ${humanizeDuration(duration, {language: 'fr'})} !`)
+        message.channel.send(`${member} was muted for ${humanizeDuration(duration, {language: 'fr'})} !`)
         setTimeout(() => {
             if (member.deleted || !member.manageable) return
             member.roles.remove(muteRole)
-            message.channel.send(`${member} a été unmute.`)
+            message.channel.send(`${member} is unmuted now.`)
         }, duration)
     },
     name: 'tempmute',
