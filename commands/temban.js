@@ -3,20 +3,20 @@ const parseDuration = require('parse-duration'),
  
 module.exports = {
     run: async (message, args) => {
-        if (!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.')
+        if (!message.member.hasPermission('BAN_MEMBERS')) return message.channel.send('Please, you dont have perms to ban someone.')
         const member = message.mentions.members.first()
-        if (!member) return message.channel.send('Veuillez mentionner le membre à bannir.')
-        if (member.id === message.guild.ownerID) return message.channel.send('Vous ne pouvez pas bannir le propriétaire du serveur.')
-        if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('Vous ne pouvez pas Bannir ce membre.')
-        if (!member.bannable) return message.channel.send('Le bot ne peut pas bannir ce membre.')
+        if (!member) return message.channel.send('Please mention someone you want to ban temporarily.')
+        if (member.id === message.guild.ownerID) return message.channel.send('You cant ban the owner.')
+        if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('you cant ban this member.')
+        if (!member.bannable) return message.channel.send('The bot failed to ban that member.')
         const duration = parseDuration(args[1])
-        if (!duration) return message.channel.send('Veuillez indiquer une durée valide.')
-        const reason = args.slice(2).join(' ') || 'Aucune raison fournie'
+        if (!duration) return message.channel.send('Please specify the duration,use m for minutes, s for seconds, and similarly.')
+        const reason = args.slice(2).join(' ') || 'No reason was given'
         await member.ban({reason})
-        message.channel.send(`${member.user.tag} a été banni pendant ${humanizeDuration(duration, {language: 'fr'})} !`)
+        message.channel.send(`${member.user.tag} Was banned because of ${humanizeDuration(duration, {language: 'fr'})} !`)
         setTimeout(() => {
             message.guild.members.unban(member)
-            message.channel.send(`${member.user.tag} a été débanni.`)
+            message.channel.send(`${member.user.tag} is banned from this server`)
         }, duration)
     },
     name: 'tempban',
