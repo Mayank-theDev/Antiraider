@@ -2,13 +2,13 @@ const fs = require('fs')
  
 module.exports = {
     run: async (message, args, client) => {
-        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.')
+        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You cant execute this command.')
         const member = message.mentions.members.first()
-        if (!member) return message.channel.send('Veuillez mentionner le membre à warn.')
-        if (member.id === message.guild.ownerID) return message.channel.send('Vous ne pouvez pas warn le propriétaire du serveur.')
-        if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('Vous ne pouvez pas warn ce membre.')
+        if (!member) return message.channel.send('Mention someone you want to warn.')
+        if (member.id === message.guild.ownerID) return message.channel.send('You cant warn the server owner
+        if (message.member.roles.highest.comparePositionTo(member.roles.highest) < 1 && message.author.id !== message.guild.ownerID) return message.channel.send('You cant warn this member')
         const reason = args.slice(1).join(' ')
-        if (!reason) return message.channel.send('Veuillez indiquer une raison.')
+        if (!reason) return message.channel.send('Please provide a reason.')
         if (!client.db.warns[member.id]) client.db.warns[member.id] = []
         client.db.warns[member.id].unshift({
             reason,
@@ -16,7 +16,7 @@ module.exports = {
             mod: message.author.id
         })
         fs.writeFileSync('./db.json', JSON.stringify(client.db))
-        message.channel.send(`${member} a été warn pour ${reason} !`)
+        message.channel.send(`${member} was warned due to reason being ${reason} !`)
     },
     name: 'warn',
     guildOnly: true
