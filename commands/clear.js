@@ -5,7 +5,7 @@ module.exports = {
         if (!/\d+/.test(count)) return message.channel.send('Please indicate a number of messages to delete/purge.')
         if (count < 1 || count > 99) return message.channel.send('The number of messages should be between 1 and 99.')
         const { size } = await message.channel.bulkDelete(Number(count) + 1, true)
-        message.channel.send(`${size - 1} messages ont été supprimés !`).then(sent => sent.delete({timeout: 5e3}))
+        message.channel.send(`${size - 1} messages have been deleted!!`).then(sent => sent.delete({timeout: 5e3}))
     },
     name: 'clear',
     guildOnly: true
