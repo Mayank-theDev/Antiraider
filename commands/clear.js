@@ -1,6 +1,6 @@
 module.exports = {
     run: async (message, args) => {
-        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('Vous n\'avez pas la permission d\'utiliser cette commande.')
+        if (!message.member.hasPermission('MANAGE_MESSAGES')) return message.channel.send('You dont have enough perms to use this command')
         const count = args[0]
         if (!/\d+/.test(count)) return message.channel.send('Veuillez indiquer un nombre de messages à supprimer.')
         if (count < 1 || count > 99) return message.channel.send('Le nombre de message doit être compris entre 1 et 99.')
