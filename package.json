@@ -1,0 +1,19 @@
+{
+  "name": "beberguard",
+  "version": "1.0.0",
+  "main": "index.js",
+  "dependencies": {
+    "discord-anti-spam": "^2.4.1",
+    "discord.js": "^12.3.1",
+    "humanize-duration": "^3.23.1",
+    "moment": "^2.27.0",
+    "parse-duration": "^0.4.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "rédéta",
+  "license": "ISC",
+  "description": ""
+}
