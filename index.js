@@ -32,7 +32,7 @@ client.on('message', message => {
 })
 
 client.on('ready', () => {
-    client.user.setActivity('Under Construction', {type: 'STREAMING', url: 'https://twitch.tv/crowbot'})
+    client.user.setActivity('YouTube', { type: 'WATCHING' })
 })
 
 client.on('channelCreate', channel => {
