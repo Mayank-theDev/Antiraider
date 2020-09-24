@@ -32,7 +32,7 @@ client.on('message', message => {
 })
 
 client.on('ready', () => {
-    client.user.setActivity('YouTube', { type: 'WATCHING' })
+    client.user.setActivity('Criminals in Crazy Gamer Official', { type: 'WATCHING' })
 })
 
 client.on('channelCreate', channel => {
